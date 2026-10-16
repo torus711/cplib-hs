@@ -8,3 +8,9 @@
 ### template.hs
 いわゆるテンプレ．
 説明は[以前書きました](https://torus711.hatenablog.com/entry/2024/01/28/182619)が内容が最新ではないです．
+
+### util.hs
+ユーティリティという名の未分類．
+- 二分法
+- 一般化 DP
+- `Data.Vector.Algorithms.Intro` を経由するソート
