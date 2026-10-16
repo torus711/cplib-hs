@@ -10,8 +10,12 @@
 説明は[以前書きました](https://torus711.hatenablog.com/entry/2024/01/28/182619)が内容が最新ではないです．
 
 ### math.hs
-数学関係．
+数学関係（予定地）．
 今のところ Eratosthenes の篩だけ．
+
+### string.hs
+文字列関係（予定地）．
+今のところ Manacher だけ．
 
 ### util.hs
 ユーティリティという名の未分類．
