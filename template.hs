@@ -89,6 +89,12 @@ readInt = fst . fromJust . B.readInt <$> B.getLine
 readInteger = fst . fromJust . B.readInteger <$> B.getLine
 readInts = map ( fst . fromJust . B.readInt ) . B.words <$> B.getLine
 readIntegers = map ( fst . fromJust . B.readInteger ) . B.words <$> B.getLine
+readIntPair = mp <$> readInts
+readIntPairs = flip replicateM readIntPair
+readIntegerPair = mp <$> readIntegers
+readIntegerPairs = flip replicateM readIntegerPair
+readIntsV n = transpose <$> replicateM n readInts
+readIntegersV n = transpose <$> replicateM n readIntegers
 #ifdef MIN_VERSION_extra
 readStr = trim . B.unpack <$> B.getLine
 #else
