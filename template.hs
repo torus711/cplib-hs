@@ -109,32 +109,38 @@ class Indexable c
 	type Index c
 	type Element c
 	(!) :: c -> Index c -> Element c
+	(!?) :: c -> Index c -> Maybe ( Element c )
 
 instance Ix i => Indexable ( Array i e )
 	where
 	type Index ( Array i e ) = i
 	type Element ( Array i e ) = e
 	(!) = (IA.!)
+	(!?) = (IA.!?)
 
 instance ( Ix i, IArray UArray e ) => Indexable ( UArray i e )
 	where
 	type Index ( UArray i e ) = i
 	type Element ( UArray i e ) = e
 	(!) = (IA.!)
+	(!?) = (IA.!?)
 
 instance Indexable ( V.Vector e )
 	where
 	type Index ( V.Vector e ) = Int
 	type Element ( V.Vector e ) = e
 	(!) = (V.!)
+	(!?) = (V.!?)
 
 instance VU.Unbox e => Indexable ( VU.Vector e )
 	where
 	type Index ( VU.Vector e ) = Int
 	type Element ( VU.Vector e ) = e
 	(!) = (VU.!)
+	(!?) = (VU.!?)
 
 infixl 9 !
+infixl 9 !?
 
 swapArrayElem a i j = do
 	x <- readArray a i
