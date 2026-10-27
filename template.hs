@@ -2,7 +2,10 @@
 -- {{ abbr: template for Haskell }}
 -- {{ class: util }}
 -- {{ pattern: main\s=\sdo }}
--- This template is published at https://github.com/torus711/cplib-hs/template.hs
+-- Author: @torus711
+-- All pasted codes are published at GitHub:
+-- https://github.com/torus711/cplib-hs/
+
 {-# LANGUAGE CPP #-}
 
 {-# LANGUAGE BinaryLiterals #-}
