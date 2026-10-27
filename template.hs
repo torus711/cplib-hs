@@ -25,6 +25,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE TypeApplications #-}   
+{-# LANGUAGE TypeFamilies #-}
 
 {-# OPTIONS_GHC -O3 #-}
 {-# OPTIONS_GHC -Wno-tabs #-}
@@ -51,7 +52,8 @@ import Data.Function
 import qualified Data.ByteString.Char8 as B
 
 import Data.Array (Array)
-import Data.Array.IArray
+import Data.Array.IArray hiding ( (!), (!?) )
+import qualified Data.Array.IArray as IA
 import Data.Array.Unboxed (UArray)
 import Data.Array.ST.Safe
 import Data.Array.MArray
@@ -95,11 +97,44 @@ readStr = dropWhile isSpace . reverse . dropWhile isSpace . reverse . B.unpack <
 readStrs = map B.unpack . B.words <$> B.getLine
 
 yesno = bool "No" "Yes"
+
 mp [ a, b ] = ( a, b )
 mp _ = undefined
 
 count a as = length $ filter ( == a ) as
 countIf f as = length $ filter f as
+
+class Indexable c
+	where
+	type Index c
+	type Element c
+	(!) :: c -> Index c -> Element c
+
+instance Ix i => Indexable ( Array i e )
+	where
+	type Index ( Array i e ) = i
+	type Element ( Array i e ) = e
+	(!) = (IA.!)
+
+instance ( Ix i, IArray UArray e ) => Indexable ( UArray i e )
+	where
+	type Index ( UArray i e ) = i
+	type Element ( UArray i e ) = e
+	(!) = (IA.!)
+
+instance Indexable ( V.Vector e )
+	where
+	type Index ( V.Vector e ) = Int
+	type Element ( V.Vector e ) = e
+	(!) = (V.!)
+
+instance VU.Unbox e => Indexable ( VU.Vector e )
+	where
+	type Index ( VU.Vector e ) = Int
+	type Element ( VU.Vector e ) = e
+	(!) = (VU.!)
+
+infixl 9 !
 
 swapArrayElem a i j = do
 	x <- readArray a i
