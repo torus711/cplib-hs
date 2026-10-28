@@ -45,6 +45,7 @@ import Data.Bits
 import Data.Char
 
 import Data.List hiding ( (!?) )
+import qualified Data.List as L
 import Data.Maybe
 import Data.Either
 import Data.Function
@@ -116,6 +117,13 @@ class Indexable c
 	type Element c
 	(!) :: c -> Index c -> Element c
 	(!?) :: c -> Index c -> Maybe ( Element c )
+
+instance Indexable ( [e] )
+	where
+	type Index ( [e] ) = Int
+	type Element ( [e] ) = e
+	(!) = (!!)
+	(!?) = (L.!?)
 
 instance Ix i => Indexable ( Array i e )
 	where
