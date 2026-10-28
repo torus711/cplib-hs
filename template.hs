@@ -139,6 +139,13 @@ instance ( Ix i, IArray UArray e ) => Indexable ( UArray i e )
 	(!) = (IA.!)
 	(!?) = (IA.!?)
 
+instance Indexable ( Seq.Seq e )
+	where
+	type Index ( Seq.Seq e ) = Int
+	type Element ( Seq.Seq e ) = e
+	(!) = Seq.index
+	(!?) = (Seq.!?)
+
 instance Indexable ( V.Vector e )
 	where
 	type Index ( V.Vector e ) = Int
